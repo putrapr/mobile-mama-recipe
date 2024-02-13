@@ -75,6 +75,7 @@ const s = StyleSheet.create({
     color: '#EFC81A',
     fontSize: 30,
     fontWeight: 'bold',
+    fontFamily: 'AirbnbCereal',
   },
 
   input: {
