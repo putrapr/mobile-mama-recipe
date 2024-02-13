@@ -51,6 +51,8 @@ const Login = ({ navigation }) => {
   )
 }
 
+export default Login
+
 const s = StyleSheet.create({
   container: {
     display:'flex',
@@ -91,4 +93,4 @@ const s = StyleSheet.create({
   },
 })
 
-export default Login
+
