@@ -6,5 +6,6 @@ module.exports = {
     semi: ['error', 'never'],
     quotes: ['error', 'single', { 'avoidEscape': true }],
     indent: ['error', 2],
+    'react-native/no-inline-styles': 0,
   },
 }
