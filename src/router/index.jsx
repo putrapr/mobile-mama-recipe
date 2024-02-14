@@ -8,14 +8,11 @@ import Register from '../pages/Register'
 import Home from '../pages/Home'
 import BottomTabs from '../components/template/ButtonTabs'
 import Category from '../pages/Home/category'
+import EditProfile from '../pages/Profile/edit'
+import LikedRecipe from '../pages/Profile/likedRecipe'
+import MyRecipe from '../pages/Profile/myRecipe'
+import SavedRecipe from '../pages/Profile/savedRecipe'
 // import Search from '../pages/Home/search'
-// import EditProfile from '../pages/Profile/edit'
-// import AddRecipe from '../pages/Recipe/add'
-// import Profile from '../pages/Profile'
-// import LikedRecipe from '../pages/Profile/likedRecipe'
-// import MyRecipe from '../pages/Profile/myRecipe'
-// import SavedRecipe from '../pages/Profile/savedRecipe'
-
 // import DetailRecipe from '../pages/Recipe'
 // import UpdateRecipe from '../pages/Recipe/update'
 // import VideoRecipe from '../pages/Recipe/video'
@@ -35,10 +32,45 @@ const Router = () => {
             headerTitleStyle: {
               color: '#EEC302',
             },
-            headerTitleAlign: 'center'
+            headerTitleAlign: 'center',
           }}
         />
-
+        <Stack.Screen name="EditProfile" component={EditProfile}
+          options={{
+            title: 'Edit Profile',
+            headerTitleStyle: {
+              color: '#EEC302',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen name="MyRecipe" component={MyRecipe}
+          options={{
+            title: 'My Recipe',
+            headerTitleStyle: {
+              color: '#EEC302',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen name="SavedRecipe" component={SavedRecipe}
+          options={{
+            title: 'Saved Recipe',
+            headerTitleStyle: {
+              color: '#EEC302',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen name="LikedRecipe" component={LikedRecipe}
+          options={{
+            title: 'Liked Recipe',
+            headerTitleStyle: {
+              color: '#EEC302',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )

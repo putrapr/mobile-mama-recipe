@@ -19,7 +19,7 @@ const Category = () => {
         title= "Veg Loaded"
         user= "Pizza Mania"
         category="Spicy"
-        saved
+        liked
       />
 
       <Card
@@ -27,7 +27,6 @@ const Category = () => {
         title= "Farm House"
         user= "Pizza Mania"
         category="Spicy"
-        saved
       />
 
       <Card
@@ -35,7 +34,7 @@ const Category = () => {
         title= "Fresh Veggie"
         user= "Pizza Mania"
         category="Spicy"
-        saved
+        saved liked
       />
 
       <Card
