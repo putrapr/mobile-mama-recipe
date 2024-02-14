@@ -7,7 +7,7 @@ const Profile = ({ navigation }) => {
     <>
       <View style={{ height: '40%', backgroundColor: '#EEC302' }}>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Image source={require('../../assets/img/default.png') } style={{ width: 90, height: 90, borderRadius: 90 / 2 }}/>
+          <Image source={ require('../../assets/img/default.png') } style={{ width: 90, height: 90, borderRadius: 90 / 2 }}/>
           <Text style={{ color:'white', fontSize: 16, fontWeight: 'bold', marginTop:20 }}>Putra Prasetya</Text>
         </View>
       </View>
