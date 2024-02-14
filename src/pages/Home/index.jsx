@@ -1,9 +1,9 @@
 import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity} from 'react-native'
 import React from 'react'
-import SvgPasta from '../../components/Svg/pasta'
-import SvgKorean from '../../components/Svg/korean'
-import SvgSeafood from '../../components/Svg/seafood'
-import SvgStar from '../../components/Svg/star'
+import SvgPasta from '../../components/base/Svg/pasta'
+import SvgKorean from '../../components/base/Svg/korean'
+import SvgSeafood from '../../components/base/Svg/seafood'
+import SvgStar from '../../components/base/Svg/star'
 
 const Home = ({ navigation }) => {
   return (
@@ -32,10 +32,8 @@ const Home = ({ navigation }) => {
             <SvgPasta style={{ width:64, height:64, borderRadius:16}} />
             <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
               <Text style={{ fontWeight: 'bold', color: 'black' }}>Orange La Pasta</Text>
-              <View style={{ display: 'flex', flexDirection: 'row', gap:5 }}>
-                <View style={{ marginTop: 5 }}>
-                  <SvgStar />
-                </View>
+              <View style={{ display: 'flex', flexDirection: 'row', alignItems:'center', gap:5 }}>
+                <SvgStar />
                 <Text>4.6  • </Text>
                 <Text style={{ color: '#6E80B0' }}>Pasta</Text>
               </View>
@@ -43,15 +41,13 @@ const Home = ({ navigation }) => {
           </View>
 
           <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', gap: 20, marginBottom:20 }}
-            onPress={ () => navigation.navigate('PopularMenu') }
+            onPress={ () => navigation.navigate('Category') }
           >
             <SvgKorean style={{ width:64, height:64, borderRadius:16}} />
             <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
               <Text style={{ fontWeight: 'bold', color: 'black' }}>Spicy Ramenyu</Text>
-              <View style={{ display: 'flex', flexDirection: 'row', gap:5 }}>
-                <View style={{ marginTop: 5 }}>
-                  <SvgStar />
-                </View>
+              <View style={{ display: 'flex', flexDirection: 'row', alignItems:'center', gap:5 }}>
+                <SvgStar />
                 <Text>4.6  • </Text>
                 <Text style={{ color: '#6E80B0' }}>Korean</Text>
               </View>
@@ -62,10 +58,8 @@ const Home = ({ navigation }) => {
             <SvgSeafood style={{ width:64, height:64, borderRadius:16}} />
             <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
               <Text style={{ fontWeight: 'bold', color: 'black' }}>Lobster Toast</Text>
-              <View style={{ display: 'flex', flexDirection: 'row', gap:5 }}>
-                <View style={{ marginTop: 5 }}>
-                  <SvgStar />
-                </View>
+              <View style={{ display: 'flex', flexDirection: 'row', alignItems:'center', gap:5 }}>
+                <SvgStar />
                 <Text>4.6  • </Text>
                 <Text style={{ color: '#6E80B0' }}>Seafood</Text>
               </View>

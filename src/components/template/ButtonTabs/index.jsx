@@ -2,9 +2,9 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Feather from 'react-native-vector-icons/Feather'
-import Home from '../../pages/Home'
-import AddRecipe from '../../pages/Recipe/add'
-import Profile from '../../pages/Profile'
+import Home from '../../../pages/Home'
+import AddRecipe from '../../../pages/Recipe/add'
+import Profile from '../../../pages/Profile'
 const Tab = createBottomTabNavigator()
 
 function MyTabs() {

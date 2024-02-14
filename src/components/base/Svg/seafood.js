@@ -1,6 +1,5 @@
-/* eslint-disable prettier/prettier */
-import * as React from 'react';
-import Svg, {Rect, Path} from 'react-native-svg';
+import * as React from 'react'
+import Svg, {Rect, Path} from 'react-native-svg'
 const SVGComponent = props => (
   <Svg
     width={64}
@@ -27,5 +26,5 @@ const SVGComponent = props => (
       fill="white"
     />
   </Svg>
-);
-export default SVGComponent;
+)
+export default SVGComponent

@@ -6,8 +6,8 @@ const Stack = createNativeStackNavigator()
 import Login from '../pages/Login'
 import Register from '../pages/Register'
 import Home from '../pages/Home'
-import BottomTabs from '../components/ButtonTabs'
-// import Category from '../pages/Home/category'
+import BottomTabs from '../components/template/ButtonTabs'
+import Category from '../pages/Home/category'
 // import Search from '../pages/Home/search'
 // import EditProfile from '../pages/Profile/edit'
 // import AddRecipe from '../pages/Recipe/add'
@@ -29,6 +29,16 @@ const Router = () => {
         <Stack.Screen name="Register" component={Register} options={{headerTitle: '', headerTransparent: true}}/>
         <Stack.Screen name="BottomTabs" component={BottomTabs} options={{headerShown: false}} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Category" component={Category}
+          options={{
+            title: 'Popular Menu',
+            headerTitleStyle: {
+              color: '#EEC302',
+            },
+            headerTitleAlign: 'center'
+          }}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   )
