@@ -25,6 +25,7 @@ const Login = ({ navigation }) => {
       <View style={{ display:'flex', alignItems: 'flex-end', paddingHorizontal: 30 }}>
         <Button
           style={{ fontSize: 14, color: '#999999' }}
+          onPress={() => navigation.push('BottomTabs')}
         >Forgot Password ?
         </Button>
       </View>
