@@ -2,8 +2,35 @@ import { View, Text, TextInput, StyleSheet, Alert } from 'react-native'
 import React from 'react'
 import Button from 'react-native-button'
 import Feather from 'react-native-vector-icons/Feather'
+import api from '../../config/api'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Login = ({ navigation }) => {
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+
+  const data = {
+    email,
+    password,
+  }
+
+  const login = async () => {
+    try {
+      const result = await api.post('/user-login', data)
+      await AsyncStorage.setItem('token', result.data.token)
+      Alert.alert(
+        'Success',
+        'Login Success',
+      )
+      navigation.navigate('BottomTabs')
+    } catch (err) {
+      Alert.alert(
+        'Login Failed',
+        'Incorrect Email or Password !',
+      )
+    }
+  }
+
   return (
     <>
       <View style={s.container}>
@@ -14,11 +41,13 @@ const Login = ({ navigation }) => {
         <TextInput
           style={s.input}
           placeholder="examplexxx@gmail.com"
+          onChangeText={setEmail}
         />
         <TextInput
           style={s.input}
           placeholder="Password"
           secureTextEntry
+          onChangeText={setPassword}
         />
       </View>
 
@@ -33,7 +62,7 @@ const Login = ({ navigation }) => {
       <View style={{ marginTop: 50, paddingHorizontal: 30 }}>
         <Button
           style={{ height: 60, borderRadius: 10, backgroundColor: '#EFC81A', color: 'white', paddingTop:17  }}
-          onPress={() => navigation.push('Home')}
+          onPress={() => login()}
         >LOG IN
         </Button>
 

@@ -1,8 +1,47 @@
-import React from 'react'
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, TextInput, StyleSheet, Alert } from 'react-native'
 import Button from 'react-native-button'
+import api from '../../config/api'
 
 const Register = ({ navigation }) => {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [password, setPassword] = useState('')
+  const [password2, setPassword2] = useState('')
+
+  const data = {
+    name,
+    email,
+    phone,
+    password,
+    password2,
+    image: 'default.png',
+  }
+
+  async function register() {
+    if (password === password2) {
+      try {
+        await api.post('/user', data)
+        Alert.alert(
+          'Sign Up Success',
+          'Please Login',
+        )
+        navigation.navigate('Login')
+      } catch (err) {
+        Alert.alert(
+          'Sign Up Failed',
+          'Create account failed',
+        )
+      }
+    } else {
+      Alert.alert(
+        'Sign Up Failed',
+        '"Create New Password" and "New Password" must be the same !',
+      )
+    }
+  }
+
   return (
     <>
       <View style={s.container}>
@@ -11,31 +50,35 @@ const Register = ({ navigation }) => {
         <TextInput
           style={s.input}
           placeholder="Name"
+          onChangeText={setName}
         />
         <TextInput
           style={s.input}
           placeholder="Email"
+          onChangeText={setEmail}
         />
         <TextInput
           style={s.input}
           placeholder="Phone Number"
+          onChangeText={setPhone}
         />
         <TextInput
           style={s.input}
           placeholder="Create New Password"
           secureTextEntry
+          onChangeText={setPassword}
         />
         <TextInput
           style={s.input}
           placeholder="New Password"
           secureTextEntry
+          onChangeText={setPassword2}
         />
-        {/* <View style={{height:30}} /> */}
 
         <Button
           containerStyle={{ marginTop:30 }}
           style={{ height: 60, width: 332, borderRadius: 10, backgroundColor: '#EFC81A', color: 'white', paddingTop: 17  }}
-          onPress={() => navigation.push('Login')}
+          onPress={() => register()}
         >CREATE
         </Button>
 
