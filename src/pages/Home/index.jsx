@@ -1,16 +1,37 @@
-import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity} from 'react-native'
+/* eslint-disable jsx-quotes */
+import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, ImageBackground } from 'react-native'
 import React from 'react'
 import SvgPasta from '../../components/base/Svg/pasta'
 import SvgKorean from '../../components/base/Svg/korean'
 import SvgSeafood from '../../components/base/Svg/seafood'
 import SvgStar from '../../components/base/Svg/star'
+import api from '../../config/api'
 
 const Home = ({ navigation }) => {
+  const [search, setSearch] = React.useState()
+  const [recipes, setRecipes] = React.useState([])
+
+  const getData = async () => {
+    try {
+      const result = await api.get('/recipes')
+      setRecipes(result.data.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  React.useEffect(() => {
+    getData()
+  },[])
+
   return (
     <>
       <View style={s.container}>
         <TextInput
           style={s.input}
+          placeholder='Search Pasta, Bread, etc'
+          onChangeText={setSearch}
+          value={search}
         />
       </View>
 
@@ -19,9 +40,29 @@ const Home = ({ navigation }) => {
           New Recipes
         </Text>
 
-        {/* <ScrollView horizontal>
-
-        </ScrollView> */}
+        <ScrollView horizontal>
+          {
+            recipes.map( (item) =>
+              <TouchableOpacity key={item.id}
+                onPress={ () =>
+                  navigation.navigate('DetailRecipe', {
+                    id: item.id,
+                  })
+                }
+              >
+                <ImageBackground
+                  style={ s.image }
+                  source={{ uri: item.image }}
+                  resizeMode="cover"
+                  key={'img' + item.id}>
+                  <View style={{ backgroundColor: '#000000c0', marginBottom:15, width: '100%' }}>
+                    <Text style={ s.text } key={item.id}>{item.title}</Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            )
+          }
+        </ScrollView>
 
         <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20, marginVertical: 30 }}>
           Popular Recipes

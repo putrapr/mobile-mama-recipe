@@ -12,10 +12,10 @@ import EditProfile from '../pages/Profile/edit'
 import LikedRecipe from '../pages/Profile/likedRecipe'
 import MyRecipe from '../pages/Profile/myRecipe'
 import SavedRecipe from '../pages/Profile/savedRecipe'
+import DetailRecipe from '../pages/Recipe'
+import VideoRecipe from '../pages/Recipe/video'
 // import Search from '../pages/Home/search'
-// import DetailRecipe from '../pages/Recipe'
 // import UpdateRecipe from '../pages/Recipe/update'
-// import VideoRecipe from '../pages/Recipe/video'
 
 
 const Router = () => {
@@ -71,6 +71,8 @@ const Router = () => {
             headerTitleAlign: 'center',
           }}
         />
+        <Stack.Screen name="DetailRecipe" component={DetailRecipe} options={{headerShown: false}}/>
+        <Stack.Screen name="VideoRecipe" component={VideoRecipe} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
