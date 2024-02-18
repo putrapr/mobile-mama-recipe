@@ -17,7 +17,7 @@ const Home = ({ navigation }) => {
       const result = await api.get('/recipes')
       setRecipes(result.data.data)
       const token = await AsyncStorage.getItem('token')
-      console.log('my token: ' + token)
+      // console.log('my token: ' + token)
     } catch (err) {
       console.log(err.message)
     }
