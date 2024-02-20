@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import { View, Text, TextInput, StyleSheet, Image, PermissionsAndroid, TouchableOpacity, Alert, ScrollView } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, Alert, ScrollView } from 'react-native'
 import Button from 'react-native-button'
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker'
-import api from '../../config/api'
+import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Add = ({ navigation }) => {
@@ -28,12 +28,6 @@ const Add = ({ navigation }) => {
         setResponse(data)
       }
     })
-  }
-
-  const getToken = async () => {
-    const token = await AsyncStorage.getItem('token')
-    console.log('getToken: ' + token)
-    return (token) ? token : ''
   }
 
   const handleSubmit = async () => {
@@ -65,7 +59,7 @@ const Add = ({ navigation }) => {
     formData.append('image', data?.image)
     formData.append('video_link', data?.videoLink)
 
-    await api.post('/recipe', formData, {
+    await axios.post(process.env.BACKEND_URL + '/recipe', formData, {
       headers: {
         Authorization: token,
         'Content-Type': 'multipart/form-data',

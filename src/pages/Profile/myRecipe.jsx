@@ -59,7 +59,7 @@ const MyRecipe = ({ navigation }) => {
           <View key={recipe.id} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 30, marginHorizontal: 20, gap: 10, backgroundColor: '#FAF7ED', padding: 10 }}>
             <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
               <Image
-                source={ require('../../assets/img/default.png') }
+                source={{ uri: recipe.image }}
                 style={{ width: 80, height: 80, borderRadius: 16 }}
               />
               <View style={{ flexBasis: 160 }}>
@@ -76,6 +76,7 @@ const MyRecipe = ({ navigation }) => {
                 onPress={()=>
                   navigation.navigate('UpdateRecipe', {
                     pId: recipe.id,
+                    pUserId: recipe.user_id,
                     pTitle: recipe.title,
                     pIngredient: recipe.ingredient,
                     pImage: recipe.image,

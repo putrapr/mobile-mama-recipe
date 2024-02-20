@@ -14,8 +14,8 @@ import MyRecipe from '../pages/Profile/myRecipe'
 import SavedRecipe from '../pages/Profile/savedRecipe'
 import DetailRecipe from '../pages/Recipe'
 import VideoRecipe from '../pages/Recipe/video'
+import UpdateRecipe from '../pages/Recipe/update'
 // import Search from '../pages/Home/search'
-// import UpdateRecipe from '../pages/Recipe/update'
 
 
 const Router = () => {
@@ -73,6 +73,7 @@ const Router = () => {
         />
         <Stack.Screen name="DetailRecipe" component={DetailRecipe} options={{headerShown: false}}/>
         <Stack.Screen name="VideoRecipe" component={VideoRecipe} options={{headerShown: false}}/>
+        <Stack.Screen name="UpdateRecipe" component={UpdateRecipe} />
       </Stack.Navigator>
     </NavigationContainer>
   )
