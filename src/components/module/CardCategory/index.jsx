@@ -18,11 +18,6 @@ const Index = ({ image, title, user, category, saved, liked}) => {
     case 5: img = image5; break
     default: img = image1
   }
-  //   '1':
-  // (!image) ? console.log('true img') : console.log('false img')
-  // console.log(image)
-  // if (!image) { image = '../../../assets/img/category/recipe1.png' }
-  // const image = require('../../../assets/img/category/recipe2.png')
   let savedColor = '#EFC81A', savedBgColor = 'white'
   let likedColor = '#EFC81A', likedBgColor = 'white'
 

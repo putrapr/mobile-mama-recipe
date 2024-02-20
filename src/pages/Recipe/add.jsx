@@ -125,7 +125,7 @@ const Add = ({ navigation }) => {
 
         <TextInput
           style={s.input}
-          placeholder="Video link"
+          placeholder="Youtube Video link"
           onChangeText={setVideoLink}
           value={videoLink}
         />

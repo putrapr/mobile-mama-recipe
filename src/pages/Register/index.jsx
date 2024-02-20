@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, StyleSheet, Alert } from 'react-native'
 import Button from 'react-native-button'
-import api from '../../config/api'
+import axios from 'axios'
 
 const Register = ({ navigation }) => {
   const [name, setName] = useState('')
@@ -22,7 +22,7 @@ const Register = ({ navigation }) => {
   async function register() {
     if (password === password2) {
       try {
-        await api.post('/user', data)
+        await axios.post(process.env.BACKEND_URL + '/user', data)
         Alert.alert(
           'Sign Up Success',
           'Please Login',

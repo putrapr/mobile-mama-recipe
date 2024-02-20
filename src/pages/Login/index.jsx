@@ -2,7 +2,7 @@ import { View, Text, TextInput, StyleSheet, Alert } from 'react-native'
 import React from 'react'
 import Button from 'react-native-button'
 import Feather from 'react-native-vector-icons/Feather'
-import api from '../../config/api'
+import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Login = ({ navigation }) => {
@@ -15,7 +15,7 @@ const Login = ({ navigation }) => {
 
   const login = async () => {
     try {
-      const result = await api.post('/user-login', data)
+      const result = await axios.post(process.env.BACKEND_URL + '/user-login', data)
       await AsyncStorage.setItem('token', result.data.token)
       Alert.alert(
         'Success',

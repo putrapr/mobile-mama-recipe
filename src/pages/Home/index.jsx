@@ -1,29 +1,26 @@
 /* eslint-disable jsx-quotes */
 import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, ImageBackground } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import SvgPasta from '../../components/base/Svg/pasta'
 import SvgKorean from '../../components/base/Svg/korean'
 import SvgSeafood from '../../components/base/Svg/seafood'
 import SvgStar from '../../components/base/Svg/star'
 import api from '../../config/api'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Home = ({ navigation }) => {
-  const [search, setSearch] = React.useState()
-  const [recipes, setRecipes] = React.useState([])
+  const [search, setSearch] = useState()
+  const [recipes, setRecipes] = useState([])
 
   const getData = async () => {
     try {
       const result = await api.get('/recipes')
       setRecipes(result.data.data)
-      const token = await AsyncStorage.getItem('token')
-      // console.log('my token: ' + token)
     } catch (err) {
       console.log(err.message)
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     getData()
   },[])
 
