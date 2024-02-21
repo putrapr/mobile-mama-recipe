@@ -1,79 +1,119 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+<p align="right">Mobile (Android)</p> 
 
-# Getting Started
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+# Mama Recipe
+Mama recipe is a website for viewing, searching and sharing recipes. There are many recipes ready to try. Users can also add their own version of the recipe and it will be posted on the website, so people can see the recipe they made.
 
-## Step 1: Start the Metro Server
+## Feature
+* Notification for popular recipe.
+* Live camera image capture.
+* Adding homemade recipes.
+* Accommodate other people comments on each recipe.
+* Set a profile that people can see.
+* Can save favourite recipes.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Built With
+* React Native
 
-To start Metro, run the following command from the _root_ of your React Native project:
-
-```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+## Dependencies
+```
+"dependencies": {
+  "@react-native-async-storage/async-storage": "^1.21.0",
+  "@react-navigation/bottom-tabs": "^6.5.12",
+  "@react-navigation/native": "^6.1.10",
+  "@react-navigation/native-stack": "^6.9.18",
+  "axios": "^1.6.7",
+  "react": "18.2.0",
+  "react-native": "0.73.4",
+  "react-native-button": "^3.1.0",
+  "react-native-dotenv": "^3.4.10",
+  "react-native-global-props": "^1.1.5",
+  "react-native-image-picker": "^7.1.0",
+  "react-native-onesignal": "^5.0.6",
+  "react-native-safe-area-context": "^4.9.0",
+  "react-native-screens": "^3.29.0",
+  "react-native-svg": "^14.1.0",
+  "react-native-vector-icons": "^10.0.3",
+  "react-native-webview": "^13.8.1",
+  "react-native-youtube-iframe": "^2.3.0"
+},
+"devDependencies": {
+  "@babel/core": "^7.20.0",
+  "@babel/preset-env": "^7.20.0",
+  "@babel/runtime": "^7.20.0",
+  "@react-native/babel-preset": "0.73.21",
+  "@react-native/eslint-config": "0.73.2",
+  "@react-native/metro-config": "0.73.5",
+  "@react-native/typescript-config": "0.73.1",
+  "@types/react": "^18.2.6",
+  "@types/react-test-renderer": "^18.0.0",
+  "babel-jest": "^29.6.3",
+  "eslint": "^8.19.0",
+  "jest": "^29.6.3",
+  "prettier": "2.8.8",
+  "react-test-renderer": "18.2.0",
+  "typescript": "5.0.4"
+},
 ```
 
-## Step 2: Start your Application
+## Installation
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+Clone the project 
+```
+git clone https://github.com/putrapr/mobile-mama-recipe.git nameYourProject
+```
 
-### For Android
+Go to the 'nameYourProject' folder
+```
+cd nameYourProject
+```
 
-```bash
-# using npm
+Install dependencies
+```
+npm install
+```
+
+Set .env
+```
+REACT_APP_BACKEND_URL=
+```
+
+Start the project
+```
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-### For iOS
+## Screenshot
+| Login Page | Register Page |
+|------------|---------------|
+|![Login Page](https://drive.google.com/uc?export=view&id=1IPVo04k_qiKff9RSf1UlQt-5XQvJs28l) | ![Register Page](https://drive.google.com/uc?export=view&id=1nzJEt4rUUVQ8BLxp2EC7MuawAbKLxwsy)|  
 
-```bash
-# using npm
-npm run ios
+| Home Page | Add Recipe Page |
+|------------|---------------|
+|![Home Page](https://drive.google.com/uc?export=view&id=1LlwcVvD1KmF6DnLRh84yGTz4ukAWHN2J) | ![Add Recipe Page](https://drive.google.com/uc?export=view&id=1y6CyC-dHLHjqT7PzkVrIS6tXugQGm3IC)|  
 
-# OR using Yarn
-yarn ios
-```
+| Detail Recipe Page (Tab Ingredient) | Detail Recipe Page (Tab Video) |
+|------------|---------------|
+|![Detail Recipe Page (Ingredient)](https://drive.google.com/uc?export=view&id=1taxDXnVsGwppWqHdWJOBv6743_1E1iPw) | ![Detail Recipe Page (Video)](https://drive.google.com/uc?export=view&id=1wXt87C8ITdeQuZM0kfe_MgAKYyLH-Eh1)|  
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+| Video Page | Profile |
+|------------|---------------|
+|![Video Page](https://drive.google.com/uc?export=view&id=1_QDUf4mhFyBPgGrWFGP0T_holm1iorlP) | ![Profile Page](https://drive.google.com/uc?export=view&id=1yybmOgg-H83sA0a1cY2-z7rGcgz-0a-X)|  
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+| Edit Profile Page | My Recipe Page |
+|------------|---------------|
+|![Edit Profile Page](https://drive.google.com/uc?export=view&id=1XQVm6BYLYDBc17rrBByfXNJDJQXor-Nm) | ![My Recipe Page](https://drive.google.com/uc?export=view&id=16-Edt4c4aTIny4_qTxX5Lao_rf75G44T)|  
 
-## Step 3: Modifying your App
+| Saved Recipe Page | Liked Recipe Page |
+|------------|---------------|
+|![Saved Recipe Page](https://drive.google.com/uc?export=view&id=1y6SxIMdChjbRQbYCuzRZN9-h7fNbHLNy) | ![Liked Recipe Page](https://drive.google.com/uc?export=view&id=1b_1UBOLdbX5CZtB1LLKHxljd2h5rK-Dz)|  
 
-Now that you have successfully run the app, let's modify it.
+## Demo
+[Mobile Mama Recipe (Android)](https://bit.ly/mamarecipe-mobile)  
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## Related Project
+[Frontend Web Mama Recipe](https://github.com/putrapr/mamarecipe)   
+[Backend Web Mama Recipe](https://github.com/putrapr/be_mamarecipe)  
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## Created By
+[Putra Prasetya](https://github.com/putrapr)  
