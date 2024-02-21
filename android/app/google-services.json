@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "298134477995",
+    "project_id": "mama-recipe-mobile-b127e",
+    "storage_bucket": "mama-recipe-mobile-b127e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298134477995:android:7ac86dd1eeea2d7f2eebee",
+        "android_client_info": {
+          "package_name": "com.mobilemamarecipe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSJ5X7usi_QtH9sU-NijuH-M6heNVn21E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

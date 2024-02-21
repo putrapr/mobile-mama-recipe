@@ -13,7 +13,13 @@ const Home = ({ navigation }) => {
 
   const getData = async () => {
     try {
-      const result = await api.get('/recipes')
+      const result = await api.get('/recipes',{
+        params: {
+          fieldSort: 'id',
+          sortBy: 'desc',
+          limit: 5,
+        },
+      })
       setRecipes(result.data.data)
     } catch (err) {
       console.log(err.message)
@@ -65,7 +71,7 @@ const Home = ({ navigation }) => {
         </ScrollView>
 
         <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20, marginVertical: 30 }}>
-          Popular Recipes
+          Recipes
         </Text>
 
         <View>
