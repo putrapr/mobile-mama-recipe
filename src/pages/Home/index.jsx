@@ -1,41 +1,85 @@
-/* eslint-disable jsx-quotes */
-import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, ImageBackground } from 'react-native'
+import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, ImageBackground, FlatList, ActivityIndicator } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import SvgPasta from '../../components/base/Svg/pasta'
-import SvgKorean from '../../components/base/Svg/korean'
-import SvgSeafood from '../../components/base/Svg/seafood'
-import SvgStar from '../../components/base/Svg/star'
+import CardRecipe from '../../components/module/CardRecipe'
 import api from '../../config/api'
 
 const Home = ({ navigation }) => {
-  const [search, setSearch] = useState()
+  // State
+  const [newRecipes, setNewRecipes] = useState([])
   const [recipes, setRecipes] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [params, setParams] = useState({
+    page: 1,
+    limit: 5,
+    sort: 'id',
+    sortBy: 'asc',
+  })
+  const [search, setSearch] = useState('')
 
-  const getData = async () => {
+
+  // Function
+  const getNewRecipes = async () => {
+    const params2 = {
+      fieldSort: 'id',
+      sortBy: 'desc',
+      limit: 5,
+    }
     try {
-      const result = await api.get('/recipes',{
-        params: {
-          fieldSort: 'id',
-          sortBy: 'desc',
-          limit: 5,
-        },
-      })
-      setRecipes(result.data.data)
+      const result = await api.get('/recipes', {params:params2})
+      setNewRecipes(result.data.data)
     } catch (err) {
       console.log(err.message)
     }
   }
 
+  const getRecipes = async () => {
+    setIsLoading(true)
+    try {
+      const result = await api.get('/recipes-pagination', { params })
+      setIsLoading(false)
+      const data = result.data.data
+      setRecipes(current => [...current, ...data])
+    } catch (err) {
+      setIsLoading(false)
+      console.log(err)
+    }
+  }
+
+  const renderLoader = () => {
+    return (
+      isLoading && (
+        <View style={{ marginVertical: 16, alignItems: 'center' }}>
+          <ActivityIndicator size="large" color="blue" />
+        </View>
+      )
+    )
+  }
+
+  const loadMoreItem = () => {
+    setParams(current => ({...current, page: current.page + 1}))
+  }
+
+  const searchRecipe = async () => {
+    const result = await api.get('/recipe-search', { params: { 'keyword': search }})
+    setRecipes(result.data.data)
+  }
+
+  // Hooks
   useEffect(() => {
-    getData()
+    getNewRecipes()
   },[])
+
+  useEffect(() => {
+    if (search !== '') searchRecipe()
+    else getRecipes()
+  }, [params, search])
 
   return (
     <>
-      <View style={s.container}>
+      <View style={s.search}>
         <TextInput
           style={s.input}
-          placeholder='Search Pasta, Bread, etc'
+          placeholder="Search Pasta, Bread, etc"
           onChangeText={setSearch}
           value={search}
         />
@@ -48,7 +92,7 @@ const Home = ({ navigation }) => {
 
         <ScrollView horizontal>
           {
-            recipes.map( (item) =>
+            newRecipes.map( (item) =>
               <TouchableOpacity key={item.id}
                 onPress={ () =>
                   navigation.navigate('DetailRecipe', {
@@ -71,48 +115,19 @@ const Home = ({ navigation }) => {
         </ScrollView>
 
         <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20, marginVertical: 30 }}>
-          Recipes
+          Popular Recipes
         </Text>
 
-        <View>
-          <View style={{ display: 'flex', flexDirection: 'row', gap: 20, marginBottom:20 }}>
-            <SvgPasta style={{ width:64, height:64, borderRadius:16}} />
-            <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
-              <Text style={{ fontWeight: 'bold', color: 'black' }}>Orange La Pasta</Text>
-              <View style={{ display: 'flex', flexDirection: 'row', alignItems:'center', gap:5 }}>
-                <SvgStar />
-                <Text>4.6  • </Text>
-                <Text style={{ color: '#6E80B0' }}>Pasta</Text>
-              </View>
-            </View>
-          </View>
-
-          <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', gap: 20, marginBottom:20 }}
-            onPress={ () => navigation.navigate('Category') }
-          >
-            <SvgKorean style={{ width:64, height:64, borderRadius:16}} />
-            <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
-              <Text style={{ fontWeight: 'bold', color: 'black' }}>Spicy Ramenyu</Text>
-              <View style={{ display: 'flex', flexDirection: 'row', alignItems:'center', gap:5 }}>
-                <SvgStar />
-                <Text>4.6  • </Text>
-                <Text style={{ color: '#6E80B0' }}>Korean</Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-
-          <View style={{ display: 'flex', flexDirection: 'row', gap: 20, marginBottom:20 }}>
-            <SvgSeafood style={{ width:64, height:64, borderRadius:16}} />
-            <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
-              <Text style={{ fontWeight: 'bold', color: 'black' }}>Lobster Toast</Text>
-              <View style={{ display: 'flex', flexDirection: 'row', alignItems:'center', gap:5 }}>
-                <SvgStar />
-                <Text>4.6  • </Text>
-                <Text style={{ color: '#6E80B0' }}>Seafood</Text>
-              </View>
-            </View>
-          </View>
-        </View>
+        <FlatList
+          data={recipes}
+          renderItem={({item, index}) => (
+            <CardRecipe navigation={navigation} item={item} />
+          )}
+          keyExtractor={item => item.id}
+          ListFooterComponent={renderLoader}
+          onEndReached={loadMoreItem}
+          onEndReachedThreshold={0}
+        />
       </View>
     </>
   )
@@ -121,8 +136,7 @@ const Home = ({ navigation }) => {
 export default Home
 
 const s = StyleSheet.create({
-  container: {
-    display:'flex',
+  search: {
     alignItems: 'center',
     paddingTop: 10,
     paddingHorizontal: 30,
@@ -157,4 +171,3 @@ const s = StyleSheet.create({
     textAlign: 'center',
   },
 })
-
