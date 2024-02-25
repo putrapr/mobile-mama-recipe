@@ -71,7 +71,7 @@ const Home = ({ navigation }) => {
   }
 
   const sortRecipe = (sort, sortBy) => {
-    console.log('sort: ' + sort + ', sortBy: ' + sortBy)
+    // console.log('sort: ' + sort + ', sortBy: ' + sortBy)
     setParams(current => ({...current, page:1, sort, sortBy}))
   }
 
