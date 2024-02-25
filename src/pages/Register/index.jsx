@@ -21,17 +21,24 @@ const Register = ({ navigation }) => {
 
   async function register() {
     if (password === password2) {
-      try {
-        await axios.post(process.env.BACKEND_URL + '/user', data)
-        Alert.alert(
-          'Sign Up Success',
-          'Please Login',
-        )
-        navigation.navigate('Login')
-      } catch (err) {
+      if (validateData()) {
+        try {
+          await axios.post(process.env.BACKEND_URL + '/user', data)
+          Alert.alert(
+            'Sign Up Success',
+            'Please Login',
+          )
+          navigation.navigate('Login')
+        } catch (err) {
+          Alert.alert(
+            'Sign Up Failed',
+            'Create account failed',
+          )
+        }
+      } else {
         Alert.alert(
           'Sign Up Failed',
-          'Create account failed',
+          'Please fill all box input !',
         )
       }
     } else {
@@ -41,6 +48,13 @@ const Register = ({ navigation }) => {
       )
     }
   }
+
+  const validateData = () => {
+    if ( data.name == '' || data.email == '' || data.phone == '' || data.password == '')
+      return false
+    return true
+  }
+
 
   return (
     <>
@@ -60,7 +74,9 @@ const Register = ({ navigation }) => {
         <TextInput
           style={s.input}
           placeholder="Phone Number"
-          onChangeText={setPhone}
+          keyboardType="numeric"
+          onChangeText={(text) => setPhone(text.replace(/[^0-9]/g, ''))}
+          value={phone}
         />
         <TextInput
           style={s.input}

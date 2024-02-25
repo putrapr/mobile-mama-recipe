@@ -121,5 +121,3 @@ const s = StyleSheet.create({
     backgroundColor: '#EFC81A',
   },
 })
-
-

@@ -39,10 +39,8 @@ const Home = ({ navigation }) => {
     try {
       const result = await api.get('/recipes-pagination', { params })
       setIsLoading(false)
-      // console.log(result.data)
       const data = result.data.data
       setTotalPage(result.data.totalPage)
-      // if (recipes.length < totalData)
       setRecipes(current => [...current, ...data])
     } catch (err) {
       setIsLoading(false)
@@ -78,8 +76,8 @@ const Home = ({ navigation }) => {
 
   // Hooks
   useEffect(() => {
-    getNewRecipes()
-    // getRecipes()
+    return navigation.addListener('focus', () => getNewRecipes())
+    // getNewRecipes()
   },[])
 
   useEffect(() => {

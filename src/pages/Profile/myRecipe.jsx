@@ -16,7 +16,7 @@ const MyRecipe = ({ navigation }) => {
   }
 
   useEffect(() => {
-    getData()
+    return navigation.addListener('focus', () => getData())
   },[])
 
   function handleDelete(id){

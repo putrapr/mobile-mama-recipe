@@ -15,13 +15,14 @@ import SavedRecipe from '../pages/Profile/savedRecipe'
 import DetailRecipe from '../pages/Recipe'
 import VideoRecipe from '../pages/Recipe/video'
 import UpdateRecipe from '../pages/Recipe/update'
-// import Search from '../pages/Home/search'
+import Splash from '../pages/Splash'
 
 
 const Router = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Splash">
+        <Stack.Screen name="Splash" component={Splash} options={{headerShown: false}}/>
         <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
         <Stack.Screen name="Register" component={Register} options={{headerTitle: '', headerTransparent: true}}/>
         <Stack.Screen name="BottomTabs" component={BottomTabs} options={{headerShown: false}} />
