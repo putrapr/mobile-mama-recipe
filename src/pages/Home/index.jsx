@@ -2,6 +2,7 @@ import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, ImageB
 import React, { useState, useEffect } from 'react'
 import CardRecipe from '../../components/module/CardRecipe'
 import api from '../../config/api'
+import Dropdown from '../../components/module/Dropdown'
 
 const Home = ({ navigation }) => {
   // State
@@ -10,11 +11,12 @@ const Home = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [params, setParams] = useState({
     page: 1,
-    limit: 5,
+    limit: 6,
     sort: 'id',
     sortBy: 'asc',
   })
   const [search, setSearch] = useState('')
+  const [totalPage, setTotalPage] = useState()
 
 
   // Function
@@ -37,7 +39,10 @@ const Home = ({ navigation }) => {
     try {
       const result = await api.get('/recipes-pagination', { params })
       setIsLoading(false)
+      // console.log(result.data)
       const data = result.data.data
+      setTotalPage(result.data.totalPage)
+      // if (recipes.length < totalData)
       setRecipes(current => [...current, ...data])
     } catch (err) {
       setIsLoading(false)
@@ -56,7 +61,8 @@ const Home = ({ navigation }) => {
   }
 
   const loadMoreItem = () => {
-    setParams(current => ({...current, page: current.page + 1}))
+    if (params.page < totalPage  )
+      setParams(current => ({...current, page: current.page + 1}))
   }
 
   const searchRecipe = async () => {
@@ -64,15 +70,31 @@ const Home = ({ navigation }) => {
     setRecipes(result.data.data)
   }
 
+  const sortRecipe = (sort, sortBy) => {
+    console.log('sort: ' + sort + ', sortBy: ' + sortBy)
+    setParams(current => ({...current, page:1, sort, sortBy}))
+  }
+
+
   // Hooks
   useEffect(() => {
     getNewRecipes()
+    // getRecipes()
   },[])
 
   useEffect(() => {
-    if (search !== '') searchRecipe()
-    else getRecipes()
-  }, [params, search])
+    console.log(params)
+    if (params.page == 1) {
+      setRecipes([])
+    }
+    if (search !== '') {
+      setRecipes([])
+      searchRecipe()
+    }
+    else {
+      getRecipes()
+    }
+  }, [params, params.sort, params.sortBy, search])
 
   return (
     <>
@@ -114,20 +136,32 @@ const Home = ({ navigation }) => {
           }
         </ScrollView>
 
-        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20, marginVertical: 30 }}>
+        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20, marginTop: 30 }}>
           Popular Recipes
         </Text>
 
-        <FlatList
-          data={recipes}
-          renderItem={({item, index}) => (
-            <CardRecipe navigation={navigation} item={item} />
-          )}
-          keyExtractor={item => item.id}
-          ListFooterComponent={renderLoader}
-          onEndReached={loadMoreItem}
-          onEndReachedThreshold={0}
-        />
+        <View style={{ alignItems:'flex-end', paddingRight:30, marginBottom:20 }}>
+          <Dropdown
+            label="Sort By"
+            width={110}
+            height={40}
+            cb={sortRecipe}
+          />
+        </View>
+
+        <View style={{ height:350 }}>
+          <FlatList
+            data={recipes}
+            renderItem={({item}) => (
+              <CardRecipe navigation={navigation} item={item} />
+            )}
+            keyExtractor={item => item.id}
+            ListFooterComponent={renderLoader}
+            onEndReached={loadMoreItem}
+            onEndReachedThreshold={0}
+          />
+
+        </View>
       </View>
     </>
   )
