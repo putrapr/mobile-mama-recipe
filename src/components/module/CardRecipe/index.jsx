@@ -14,8 +14,8 @@ const CardRecipe = ({ navigation, item }) => {
       <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
         <Text style={{ fontWeight: 'bold', color: 'black' }}>{item.title}</Text>
         <View style={{ display: 'flex', flexDirection: 'row', alignItems:'center', gap:5 }}>
-          <SvgStar />
-          <Text>4.6</Text>
+          {/* <SvgStar />
+          <Text>4.6</Text> */}
         </View>
       </View>
     </TouchableOpacity>
