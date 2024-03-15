@@ -69,7 +69,6 @@ const Home = ({ navigation }) => {
   }
 
   const sortRecipe = (sort, sortBy) => {
-    // console.log('sort: ' + sort + ', sortBy: ' + sortBy)
     setParams(current => ({...current, page:1, sort, sortBy}))
   }
 
@@ -77,11 +76,9 @@ const Home = ({ navigation }) => {
   // Hooks
   useEffect(() => {
     return navigation.addListener('focus', () => getNewRecipes())
-    // getNewRecipes()
   },[])
 
   useEffect(() => {
-    console.log(params)
     if (params.page == 1) {
       setRecipes([])
     }

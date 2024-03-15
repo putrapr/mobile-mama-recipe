@@ -1,9 +1,15 @@
-import React from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native'
+import Button from 'react-native-button'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
+import axios from 'axios'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useRoute } from '@react-navigation/native'
 
 const Edit = ({ navigation }) => {
-  const [response, setResponse] = React.useState(null)
+  const route = useRoute()
+  const [name, setName] = useState(route.params?.name)
+  const [response, setResponse] = useState(null)
   const option = {
     mediaType: 'photo',
     maxHeight: 2000,
@@ -38,23 +44,75 @@ const Edit = ({ navigation }) => {
         setResponse(data)
       }
     })
-
   }
 
-  const submitImage = () => {
+  const submitImage = async () => {
+    const id = await AsyncStorage.getItem('id')
+    const formData = new FormData()
+    formData.append('image', {
+      uri: response.uri,
+      name: response.fileName,
+      filename: response.fileName,
+      type: response.type,
+    })
 
+    try {
+      await axios.put(process.env.BACKEND_URL + '/user-image/' + id, formData, {
+        headers : {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      Alert.alert(
+        'Success',
+        'Image Updated',
+      )
+      navigation.navigate('Profile')
+    } catch (err) {
+      Alert.alert(
+        'Failed',
+        'Image Not Updated',
+      )
+    }
+  }
+
+  const submitName = async () => {
+    const id = await AsyncStorage.getItem('id')
+    try {
+      await axios.put(process.env.BACKEND_URL + '/user-name/' + id, { name } )
+      Alert.alert(
+        'Success',
+        'Name Updated',
+      )
+      navigation.navigate('Profile')
+    } catch (err) {
+      Alert.alert(
+        'Failed',
+        'Name Not Updated',
+      )
+    }
   }
 
   return (
     <>
-      <View style={{ marginHorizontal: 20 }}>
-        <TouchableOpacity style={{ borderBottomWidth: 1, marginTop: 20, borderColor: '#cccccc' }}>
+      <View style={{ padding: 15 }}>
+        {/* <TouchableOpacity style={{ borderBottomWidth: 1, marginTop: 20, borderColor: '#cccccc' }}>
           <Text style={{ marginBottom: 5 }}>Change Profile Picture</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        <TextInput
+          style={s.input}
+          value={name}
+          onChangeText={setName}
+        />
+        <Button
+          style={{ height: 40, borderRadius: 10, backgroundColor: '#EFC81A', color: 'white', paddingTop:8  }}
+          onPress={() => submitName()}
+        >Save Name
+        </Button>
 
-        <TouchableOpacity style={{borderBottomWidth: 1, marginTop: 10, borderColor: '#cccccc' }}>
+        {/* <TouchableOpacity style={{borderBottomWidth: 1, marginTop: 10, borderColor: '#cccccc' }}>
           <Text style={{ marginBottom: 5 }}>Change Password</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       { response &&
@@ -96,3 +154,17 @@ const Edit = ({ navigation }) => {
 }
 
 export default Edit
+
+const s = StyleSheet.create({
+  input: {
+    height: 40,
+    width: '100%',
+    marginBottom: 15,
+    borderWidth: 1,
+    borderColor: '#EFC81A',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: '#f7f7f7',
+  },
+})

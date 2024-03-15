@@ -1,20 +1,38 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
+import api from '../../config/api'
 
 const Profile = ({ navigation }) => {
+  const [profile, setProfile] = useState()
+  const getData = async () => {
+    try {
+      const result = await api.get('/user')
+      setProfile(result.data.data)
+    } catch (err) {
+      console.log(err.message)
+    }
+  }
+
+  useEffect(() => {
+    return navigation.addListener('focus', () => getData())
+  },[])
+
   return (
     <>
       <View style={{ height: '40%', backgroundColor: '#EEC302' }}>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Image source={ require('../../assets/img/default.png') } style={{ width: 90, height: 90, borderRadius: 90 / 2 }}/>
-          <Text style={{ color:'white', fontSize: 16, fontWeight: 'bold', marginTop:20 }}>Putra Prasetya</Text>
+          { profile?.image && 
+            <Image style={{ width: 90, height: 90, borderRadius: 90 / 2 }}
+              source={ profile.image !== 'default.png' ? { uri: profile.image } : require('../../assets/img/default.png') }/>
+          }
+          <Text style={{ color:'white', fontSize: 16, fontWeight: 'bold', marginTop:20 }}>{profile?.name}</Text>
         </View>
       </View>
 
       <View style={{ borderWidth:1, borderColor: '#e2e2e2', borderRadius: 30, marginTop: -50, marginHorizontal:10, height:600, backgroundColor:'#efefef' }}>
         {/* Edit Profile */}
-        <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={{ display:'flex', flexDirection: 'row', justifyContent: 'space-between', margin:20 }}>
+        <TouchableOpacity onPress={() => navigation.navigate('EditProfile', {name: profile?.name})} style={{ display:'flex', flexDirection: 'row', justifyContent: 'space-between', margin:20 }}>
           <View style={{ display:'flex', flexDirection: 'row' }}>
             <Feather name="user" color={'#EEC302'} size={25} />
             <Text style={{ color: '#000000', marginTop: 2, marginLeft:12, fontSize:16 }}>Edit Profile</Text>

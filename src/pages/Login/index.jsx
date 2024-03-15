@@ -17,6 +17,7 @@ const Login = ({ navigation }) => {
     try {
       const result = await axios.post(process.env.BACKEND_URL + '/user-login', data)
       await AsyncStorage.setItem('token', result.data.token)
+      await AsyncStorage.setItem('id', result.data.id.toString())
       Alert.alert(
         'Success',
         'Login Success',
@@ -31,7 +32,7 @@ const Login = ({ navigation }) => {
   }
 
   return (
-    <>
+    <View style={{ backgroundColor: 'white', height:'100%' }}>
       <View style={s.container}>
         <Feather name="user" style={s.image} />
         <Text style={s.title}>Welcome !</Text>
@@ -76,7 +77,7 @@ const Login = ({ navigation }) => {
           </Button>
         </View>
       </View>
-    </>
+    </View>
   )
 }
 
@@ -109,11 +110,12 @@ const s = StyleSheet.create({
     height: 60,
     width: '100%',
     margin: 12,
-    borderWidth: 1,
-    borderColor: '#EFC81A',
+    // borderWidth: 1,
+    // borderColor: '#EFC81A',
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 40,
+    backgroundColor: '#f7f7f7',
   },
 
   login: {
